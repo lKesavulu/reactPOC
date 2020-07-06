@@ -4,12 +4,15 @@ import React,{Component} from 'react'
 //import Dashboard from './Dashboard';
 
 class Login extends Component{
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         //const history = useHistory();
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUserIdChange = this.handleUserIdChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    }
+    componentDidMount(){
+        console.log(this.props)
     }
     handleUserIdChange=event=>{
         let inputValue = event.target.value;
@@ -34,9 +37,10 @@ class Login extends Component{
 
                 if("Success"===res.result){
                     //dispach("SET_USER",{user:res.user,isAuthenticated:true});
-                   // this.props.setUser({user:res.user,isAuthenticated:true})
+                    console.log(this.props)
+                    this.props.setUser({user:res.user,isAuthenticated:true})
                     this.setState({isAuthenticated: true})
-                   window.location.href="/dashboard";
+                   this.props.history.push("/dashboard");
                 }
             });
         }).then();
