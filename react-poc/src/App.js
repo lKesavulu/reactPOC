@@ -16,11 +16,7 @@ class App extends Component {
 componentDidMount(){
   fetch("http://localhost:9000/users").then(response=>{
     response.json().then(res=>{
-      //console.log(JSON.parse(JSON.stringify(res)));
-       // this.props.users = this.props.users.concat(res);
-       this.setState({users : res});
-        console.log(this.state.users);
-        console.log(this.props)
+      this.props.fetchUsers(res);
     });
 }).then();
 }
@@ -45,9 +41,10 @@ const mapStateToProps = state=>{
       currentUser : state.currentUser
     }
 }
-const mapDispatchToProps =(dispach)=>{
+const mapDispatchToProps =(dispatch)=>{
   return{
-    setUser :(userObj)=>dispach({type:"SET_USER",value:userObj}),
+    setUser :(userObj)=>dispatch({type:"SET_USER",value:userObj}),
+    fetchUsers : (users)=>dispatch({type:"FETCH_USERS",value:users})
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(App);
